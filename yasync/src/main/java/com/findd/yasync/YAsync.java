@@ -11,6 +11,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * 异步调度类
+ *
  * Created by troy_tang on 2014/11/4.
  */
 public class YAsync {
@@ -27,8 +29,17 @@ public class YAsync {
      * 有N处理器，便长期保持N个活跃线程。
      */
     private static final int CORE_POOL_SIZE = CPU_COUNT;
+    /**
+     * 线程池的大小
+     */
     private static final int MAXIMUM_POOL_SIZE = Integer.MAX_VALUE;
+    /**
+     * 空闲线程退出等待时间
+     */
     private static final int KEEP_ALIVE = 10;
+    /**
+     * 线程工厂，所有线程由此对象创建
+     */
     private static final ThreadFactory sThreadFactory = new ThreadFactory() {
         private final AtomicInteger mCount = new AtomicInteger(1);
 
@@ -37,6 +48,9 @@ public class YAsync {
             return new Thread(r, "YAsync #" + mCount.getAndIncrement());
         }
     };
+    /**
+     * 任务队列
+     */
     private static final BlockingQueue<Runnable> sPoolWorkQueue = new SynchronousQueue<Runnable>();
     /**
      * An {@link Executor} that can be used to execute tasks in parallel.
@@ -50,7 +64,7 @@ public class YAsync {
 
     /*********************************** 线程并发控制器 *******************************/
     /**
-     * 并发量控制: 根据cpu能力控制一段时间内并发数量，并发过量大时采用Lru方式移除旧的异步任务，默认采用LIFO策略调度线程运作，开发者可选调度策略有LIFO、FIFO。
+     * 并发量控制: 根据cpu能力控制一段时间内并发数量，并发过量大时采用Lru方式移除旧的异步任务，默认采用LIFO策略调度线程运作，可选调度策略有LIFO、FIFO。
      */
     public static final Executor mLruSerialExecutor = new SmartSerialExecutor();
 
