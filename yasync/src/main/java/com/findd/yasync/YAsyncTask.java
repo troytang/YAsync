@@ -10,7 +10,7 @@ public class YAsyncTask<TaskResult> {
     // 异步任务执行体
     private AsyncAction<TaskResult> asyncAction;
     // 异步任务完成后主线程执行体
-    private AsyncResultAction asyncResultAction;
+    private AsyncResult asyncResult;
 
     /**
      * 构造方法
@@ -33,11 +33,11 @@ public class YAsyncTask<TaskResult> {
     /**
      * 设置异步任务完成后主线程的任务
      *
-     * @param asyncResultAction
+     * @param asyncResult
      * @return
      */
-    public YAsyncTask<TaskResult> doWhenFinished(AsyncResultAction asyncResultAction){
-        this.asyncResultAction = asyncResultAction;
+    public YAsyncTask<TaskResult> doWhenFinished(AsyncResult<TaskResult> asyncResult){
+        this.asyncResult = asyncResult;
         return this;
     }
 
@@ -49,7 +49,7 @@ public class YAsyncTask<TaskResult> {
     public YAsyncRunner<TaskResult> create(){
         YAsyncRunner<TaskResult> asyncRunner = new YAsyncRunner<TaskResult>();
         asyncRunner.setActionInBackground(asyncAction);
-        asyncRunner.setActionOnResult(asyncResultAction);
+        asyncRunner.setActionOnResult(asyncResult);
         return asyncRunner;
     }
 }

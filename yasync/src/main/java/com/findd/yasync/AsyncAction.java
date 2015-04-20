@@ -5,8 +5,8 @@ package com.findd.yasync;
  *
  * Created by troy_tang on 2014/11/4.
  */
-public interface AsyncAction<ActionResult> {
+public interface AsyncAction<Result> {
 
-    public ActionResult doAsync();
+    public Result doAsync();
 
 }

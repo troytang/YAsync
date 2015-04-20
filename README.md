@@ -16,7 +16,7 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv.setText(o);
@@ -36,7 +36,7 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv8.setText(o);

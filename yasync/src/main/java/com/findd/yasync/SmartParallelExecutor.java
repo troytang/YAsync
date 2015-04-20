@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * Created by Troy on 15/4/20.
  */
-public class SmartParallelExecutor implements Executor {
+class SmartParallelExecutor implements Executor {
 
     /**
      * 这里使用{@link ArrayDequeCompat}当栈比{@link Stack}性能高

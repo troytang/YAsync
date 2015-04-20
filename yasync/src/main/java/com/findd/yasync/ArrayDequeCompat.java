@@ -7,7 +7,7 @@ package com.findd.yasync;
  * @author MaTianyu
  *         2014-1-31上午12:37:26
  */
-public class ArrayDequeCompat<E> {
+class ArrayDequeCompat<E> {
     private transient E[] elements;
     private transient int head;
     private transient int tail;

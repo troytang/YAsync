@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.findd.yasync.AsyncAction;
-import com.findd.yasync.AsyncResultAction;
+import com.findd.yasync.AsyncResult;
 import com.findd.yasync.YAsync;
 import com.findd.yasync.YAsyncTask;
 
@@ -34,7 +34,7 @@ public class TestActivity extends Activity{
                 }
                 return "10s gone";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv1.setText(o);

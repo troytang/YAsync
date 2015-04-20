@@ -1,7 +1,6 @@
 package com.findd.yasyncdemo;
 
 import android.content.Intent;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,9 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.findd.yasync.AsyncAction;
-import com.findd.yasync.AsyncResultAction;
+import com.findd.yasync.AsyncResult;
 import com.findd.yasync.YAsync;
-import com.findd.yasync.YAsyncRunner;
 import com.findd.yasync.YAsyncTask;
 
 
@@ -81,7 +79,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv.setText(o);
@@ -98,7 +96,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv2.setText(o);
@@ -115,7 +113,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv3.setText(o);
@@ -132,7 +130,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv4.setText(o);
@@ -149,7 +147,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv5.setText(o);
@@ -166,7 +164,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv6.setText(o);
@@ -183,7 +181,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv7.setText(o);
@@ -200,7 +198,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResultAction<String>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv8.setText(o);
@@ -227,7 +225,7 @@ public class MainActivity extends ActionBarActivity {
                         }
                         return "10s gone.";
                     }
-                }).doWhenFinished(new AsyncResultAction<String>() {
+                }).doWhenFinished(new AsyncResult<String>() {
                     @Override
                     public void onResult(String o) {
                         tv9.setText(o);

@@ -3,25 +3,21 @@ package com.findd.yasync;
 import android.os.Handler;
 import android.os.Looper;
 
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.FutureTask;
 
 /**
  * Created by troy_tang on 2014/11/4.
  */
-public class YAsyncRunner<TaskResult> implements Runnable{
+class YAsyncRunner<TaskResult> implements Runnable{
 
     private static Handler uiHandler = new Handler(Looper.getMainLooper());
 
     // 异步任务在其他线程做的主要任务
     private AsyncAction actionInBackground;
     // 当异步任务完成了，把返回提交到主线程后所做的工作
-    private AsyncResultAction actionOnMainThread;
+    private AsyncResult actionOnMainThread;
 
-    // The FutureTask created for the action
-    private FutureTask asyncFutureTask;
-
-    // The result of the background action
+    // 异步任务返回的结果
     private TaskResult result;
 
     /**
@@ -34,7 +30,7 @@ public class YAsyncRunner<TaskResult> implements Runnable{
         return actionInBackground;
     }
 
-    public AsyncResultAction getActionOnResult() {
+    public AsyncResult getActionOnResult() {
         return actionOnMainThread;
     }
 
@@ -50,7 +46,7 @@ public class YAsyncRunner<TaskResult> implements Runnable{
      * 设置后台线程运行玩之后把返回值提交到主线程后所执行的任务
      * @param actionOnMainThread 一个AsyncResultAction，由YAsyncTask设置
      */
-    public void setActionOnResult(AsyncResultAction actionOnMainThread) {
+    public void setActionOnResult(AsyncResult actionOnMainThread) {
         this.actionOnMainThread = actionOnMainThread;
     }
 
