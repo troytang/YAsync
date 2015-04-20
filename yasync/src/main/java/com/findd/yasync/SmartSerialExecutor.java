@@ -66,6 +66,28 @@ public class SmartSerialExecutor implements Executor {
         reSettings(cpuCount);
     }
 
+    public synchronized void next() {
+        Runnable mActive;
+        switch (mStrategy) {
+            case LIFO :
+                mActive = mQueue.pollLast();
+                break;
+            case FIFO :
+                mActive = mQueue.pollFirst();
+                break;
+            default :
+                mActive = mQueue.pollLast();
+                break;
+        }
+        if (mActive != null) threadPoolExecutor.execute(mActive);
+    }
+
+    public synchronized void clear() {
+        if (null != mQueue) {
+            mQueue.clear();
+        }
+    }
+
     @Override
     public synchronized void execute(final Runnable command) {
         Runnable r = new Runnable() {
@@ -94,22 +116,6 @@ public class SmartSerialExecutor implements Executor {
             // }
         }
 
-    }
-
-    public synchronized void next() {
-        Runnable mActive;
-        switch (mStrategy) {
-            case LIFO :
-                mActive = mQueue.pollLast();
-                break;
-            case FIFO :
-                mActive = mQueue.pollFirst();
-                break;
-            default :
-                mActive = mQueue.pollLast();
-                break;
-        }
-        if (mActive != null) threadPoolExecutor.execute(mActive);
     }
 
 }

@@ -4,11 +4,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.findd.yasync.AsyncAction;
 import com.findd.yasync.AsyncResultAction;
 import com.findd.yasync.YAsync;
+import com.findd.yasync.YAsyncRunner;
 import com.findd.yasync.YAsyncTask;
 
 
@@ -22,6 +25,10 @@ public class MainActivity extends ActionBarActivity {
     TextView tv6;
     TextView tv7;
     TextView tv8;
+    TextView tv9;
+
+    Button btnStop;
+    Button btnStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +43,9 @@ public class MainActivity extends ActionBarActivity {
         tv6 = (TextView)findViewById(R.id.tv6);
         tv7 = (TextView)findViewById(R.id.tv7);
         tv8 = (TextView)findViewById(R.id.tv8);
+        tv9 = (TextView) findViewById(R.id.tv9);
+        btnStart = (Button)findViewById(R.id.btn_start);
+        btnStop = (Button)findViewById(R.id.btn_stop);
 
 //        new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
 //            @Override
@@ -189,6 +199,35 @@ public class MainActivity extends ActionBarActivity {
                 tv8.setText(o);
             }
         }).create(), true);
+
+        btnStop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YAsync.cancelAll();
+            }
+        });
+
+        btnStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+                    @Override
+                    public String doAsync() {
+                        try {
+                            Thread.sleep(10000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        return "10s gone.";
+                    }
+                }).doWhenFinished(new AsyncResultAction<String>() {
+                    @Override
+                    public void onResult(String o) {
+                        tv9.setText(o);
+                    }
+                }).create());
+            }
+        });
     }
 
 

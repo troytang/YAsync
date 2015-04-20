@@ -124,4 +124,18 @@ public class YAsync {
         }
     }
 
+    /**
+     * 取消所有任务
+     */
+    public static void cancelAll() {
+        // 删除控制器中队列中尚未进去线程池的任务
+        ((SmartSerialExecutor) mLruSerialExecutor).clear();
+        ((SmartParallelExecutor) mLruParallelExecutor).clear();
+
+        // 删除线程池中等待运行的任务
+        mCachedSerialExecutor.purge();
+        mCachedParallelExecutor.purge();
+
+        // 删除线程池中正在运行的任务
+    }
 }

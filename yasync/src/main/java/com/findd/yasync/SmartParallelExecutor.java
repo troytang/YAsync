@@ -1,5 +1,8 @@
 package com.findd.yasync;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -57,10 +60,12 @@ public class SmartParallelExecutor implements Executor {
         mQueue = new ArrayDequeCompat<>(parallelMaxCount);
     }
 
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public SmartParallelExecutor(int cupCount, ThreadPoolExecutor threadPoolExecutor) {
         this.cpuCount = cupCount;
         this.threadPoolExecutor = threadPoolExecutor;
         reSettings(cupCount);
+        this.threadPoolExecutor.allowCoreThreadTimeOut(true);
     }
 
     public synchronized void next() {
@@ -77,6 +82,12 @@ public class SmartParallelExecutor implements Executor {
                 break;
         }
         if (mActive != null) threadPoolExecutor.execute(mActive);
+    }
+
+    public synchronized void clear() {
+        if (null != mQueue) {
+            mQueue.clear();
+        }
     }
 
     @Override
@@ -107,4 +118,5 @@ public class SmartParallelExecutor implements Executor {
             // }
         }
     }
+
 }

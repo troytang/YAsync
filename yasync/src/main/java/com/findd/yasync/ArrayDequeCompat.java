@@ -3,8 +3,9 @@ package com.findd.yasync;
 /**
  * 精简版{@link ArrayDeque}实现。
  * 兼容旧版本Android的{@link ArrayDeque}，高性能Stack和Queue。
+ *
  * @author MaTianyu
- * 2014-1-31上午12:37:26
+ *         2014-1-31上午12:37:26
  */
 public class ArrayDequeCompat<E> {
     private transient E[] elements;
@@ -117,5 +118,23 @@ public class ArrayDequeCompat<E> {
      */
     public int size() {
         return (tail - head) & (elements.length - 1);
+    }
+
+    /**
+     * Removes all of the elements from this deque. The deque will be empty after this call returns.
+     */
+
+    public void clear() {
+        int h = head;
+        int t = tail;
+        if (h != t) { // clear all cells
+            head = tail = 0;
+            int i = h;
+            int mask = elements.length - 1;
+            do {
+                elements[i] = null;
+                i = (i + 1) & mask;
+            } while (i != t);
+        }
     }
 }
