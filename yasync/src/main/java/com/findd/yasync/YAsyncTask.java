@@ -7,7 +7,9 @@ package com.findd.yasync;
  */
 public class YAsyncTask<TaskResult> {
 
+    // 异步任务执行体
     private AsyncAction<TaskResult> asyncAction;
+    // 异步任务完成后主线程执行体
     private AsyncResultAction asyncResultAction;
 
     /**
@@ -18,6 +20,7 @@ public class YAsyncTask<TaskResult> {
     }
 
     /**
+     * 设置异步任务
      *
      * @param asyncAction
      * @return
@@ -28,6 +31,7 @@ public class YAsyncTask<TaskResult> {
     }
 
     /**
+     * 设置异步任务完成后主线程的任务
      *
      * @param asyncResultAction
      * @return
@@ -37,6 +41,11 @@ public class YAsyncTask<TaskResult> {
         return this;
     }
 
+    /**
+     * 创建一个异步任务的线程
+     *
+     * @return
+     */
     public YAsyncRunner<TaskResult> create(){
         YAsyncRunner<TaskResult> asyncRunner = new YAsyncRunner<TaskResult>();
         asyncRunner.setActionInBackground(asyncAction);

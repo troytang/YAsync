@@ -4,6 +4,7 @@
 
 ### 使用方法 ###
 
+*一般情况下直接如下使用：
 ```
 YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
@@ -21,6 +22,26 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
                 tv.setText(o);
             }
         }).create());
+```
+
+*多异步正在执行，而当下任务需要不进行排队马上执行时：
+```
+YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+            @Override
+            public String doAsync() {
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return "10s gone.";
+            }
+        }).doWhenFinished(new AsyncResultAction<String>() {
+            @Override
+            public void onResult(String o) {
+                tv8.setText(o);
+            }
+        }).create(), true);
 ```
 
 ### 优点 ###

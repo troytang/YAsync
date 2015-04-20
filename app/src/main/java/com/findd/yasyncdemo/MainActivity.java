@@ -21,6 +21,7 @@ public class MainActivity extends ActionBarActivity {
     TextView tv5;
     TextView tv6;
     TextView tv7;
+    TextView tv8;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class MainActivity extends ActionBarActivity {
         tv5 = (TextView)findViewById(R.id.tv5);
         tv6 = (TextView)findViewById(R.id.tv6);
         tv7 = (TextView)findViewById(R.id.tv7);
+        tv8 = (TextView)findViewById(R.id.tv8);
 
 //        new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
 //            @Override
@@ -170,6 +172,23 @@ public class MainActivity extends ActionBarActivity {
                 tv7.setText(o);
             }
         }).create());
+
+        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+            @Override
+            public String doAsync() {
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return "10s gone.";
+            }
+        }).doWhenFinished(new AsyncResultAction<String>() {
+            @Override
+            public void onResult(String o) {
+                tv8.setText(o);
+            }
+        }).create(), true);
     }
 
 

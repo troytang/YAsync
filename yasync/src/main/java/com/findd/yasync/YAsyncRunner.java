@@ -13,9 +13,9 @@ public class YAsyncRunner<TaskResult> implements Runnable{
 
     private static Handler uiHandler = new Handler(Looper.getMainLooper());
 
-    // Action to do in background
+    // 异步任务在其他线程做的主要任务
     private AsyncAction actionInBackground;
-    // Action to do when the background action ends
+    // 当异步任务完成了，把返回提交到主线程后所做的工作
     private AsyncResultAction actionOnMainThread;
 
     // The FutureTask created for the action
@@ -25,54 +25,38 @@ public class YAsyncRunner<TaskResult> implements Runnable{
     private TaskResult result;
 
     /**
-     * Instantiates a new AsyncTask
+     * 初始化一个AsyncTask实例
      */
     public YAsyncRunner() {
     }
 
-    /**
-     * Executes the provided code immediately on the UI Thread
-     * @param onMainThreadTask Interface that wraps the code to execute
-     */
-    public static void doOnMainThread(final OnMainThreadTask onMainThreadTask) {
-        uiHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                onMainThreadTask.doInUiThread();
-            }
-        });
+    public AsyncAction getActionInBackground() {
+        return actionInBackground;
+    }
+
+    public AsyncResultAction getActionOnResult() {
+        return actionOnMainThread;
     }
 
     /**
-     * Executes the provided code immediately on a background thread
-     * @param onBackgroundTask Interface that wraps the code to execute
+     * 设置在后台线程执行的任务
+     * @param actionInBackground 一个AsyncAction，由YAsyncTask设置
      */
-    public static void doInBackground(final OnBackgroundTask onBackgroundTask) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                onBackgroundTask.doInBackground();
-            }
-        }).start();
+    public void setActionInBackground(AsyncAction actionInBackground) {
+        this.actionInBackground = actionInBackground;
     }
 
     /**
-     * Executes the provided code immediately on a background thread that will be submitted to the
-     * provided ExecutorService
-     * @param onBackgroundTask Interface that wraps the code to execute
-     * @param executor Will queue the provided code
+     * 设置后台线程运行玩之后把返回值提交到主线程后所执行的任务
+     * @param actionOnMainThread 一个AsyncResultAction，由YAsyncTask设置
      */
-    public static FutureTask doInBackground(final OnBackgroundTask onBackgroundTask, ExecutorService executor) {
-        FutureTask task = (FutureTask) executor.submit(new Runnable() {
-            @Override
-            public void run() {
-                onBackgroundTask.doInBackground();
-            }
-        });
-
-        return task;
+    public void setActionOnResult(AsyncResultAction actionOnMainThread) {
+        this.actionOnMainThread = actionOnMainThread;
     }
 
+    /**
+     * 把运行结果发送到主线程
+     */
     private void onResult() {
         if (actionOnMainThread != null) {
             uiHandler.post(new Runnable() {
@@ -82,30 +66,6 @@ public class YAsyncRunner<TaskResult> implements Runnable{
                 }
             });
         }
-    }
-
-    public AsyncAction getActionInBackground() {
-        return actionInBackground;
-    }
-
-    /**
-     * Specifies which action to run in background
-     * @param actionInBackground the action
-     */
-    public void setActionInBackground(AsyncAction actionInBackground) {
-        this.actionInBackground = actionInBackground;
-    }
-
-    public AsyncResultAction getActionOnResult() {
-        return actionOnMainThread;
-    }
-
-    /**
-     * Specifies which action to run when the background action is finished
-     * @param actionOnMainThread the action
-     */
-    public void setActionOnResult(AsyncResultAction actionOnMainThread) {
-        this.actionOnMainThread = actionOnMainThread;
     }
 
     @Override
