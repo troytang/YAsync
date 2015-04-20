@@ -1,5 +1,7 @@
 package com.findd.yasyncdemo;
 
+import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +19,8 @@ import com.findd.yasync.YAsyncTask;
 
 public class MainActivity extends ActionBarActivity {
 
+    View root;
+
     TextView tv;
     TextView tv2;
     TextView tv3;
@@ -29,12 +33,14 @@ public class MainActivity extends ActionBarActivity {
 
     Button btnStop;
     Button btnStart;
+    Button btnChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        root = findViewById(R.id.root);
         tv = (TextView)findViewById(R.id.tv);
         tv2 = (TextView)findViewById(R.id.tv2);
         tv3 = (TextView)findViewById(R.id.tv3);
@@ -46,6 +52,7 @@ public class MainActivity extends ActionBarActivity {
         tv9 = (TextView) findViewById(R.id.tv9);
         btnStart = (Button)findViewById(R.id.btn_start);
         btnStop = (Button)findViewById(R.id.btn_stop);
+        btnChange = (Button)findViewById(R.id.btn_change);
 
 //        new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
 //            @Override
@@ -226,6 +233,14 @@ public class MainActivity extends ActionBarActivity {
                         tv9.setText(o);
                     }
                 }).create());
+            }
+        });
+
+        btnChange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TestActivity.class);
+                MainActivity.this.startActivity(intent);
             }
         });
     }
