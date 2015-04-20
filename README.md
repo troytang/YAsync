@@ -44,6 +44,11 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
         }).create(), true);
 ```
 
+* 取消未执行的所有任务
+```
+YAsync.cancelAll();
+```
+
 ### 优点 ###
 
 * 基于Thread和Handler，真正实现并发异步而非串行异步。
