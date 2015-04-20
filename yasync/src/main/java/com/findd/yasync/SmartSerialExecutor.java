@@ -1,5 +1,8 @@
 package com.findd.yasync;
 
+import android.annotation.TargetApi;
+import android.os.Build;
+
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -60,10 +63,12 @@ public class SmartSerialExecutor implements Executor {
         mQueue = new ArrayDequeCompat<>(serialMaxCount);
     }
 
+    @TargetApi(Build.VERSION_CODES.GINGERBREAD)
     public SmartSerialExecutor(int cpuCount, ThreadPoolExecutor threadPoolExecutor) {
         this.cpuCount = cpuCount;
         this.threadPoolExecutor = threadPoolExecutor;
         reSettings(cpuCount);
+        this.threadPoolExecutor.allowCoreThreadTimeOut(true);
     }
 
     public synchronized void next() {
