@@ -21,7 +21,7 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
             public void onResult(String o) {
                 tv.setText(o);
             }
-        }).create());
+        }));
 ```
 
 * 多异步正在执行，而当下任务需要不进行排队马上执行时：
@@ -41,7 +41,7 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
             public void onResult(String o) {
                 tv8.setText(o);
             }
-        }).create(), true);
+        }), true);
 ```
 
 * 取消未执行的所有任务
