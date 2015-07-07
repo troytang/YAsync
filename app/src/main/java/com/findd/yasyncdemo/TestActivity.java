@@ -39,6 +39,6 @@ public class TestActivity extends Activity{
             public void onResult(String o) {
                 tv1.setText(o);
             }
-        }).create());
+        }));
     }
 }

@@ -96,7 +96,7 @@ public class YAsync {
     /**
      * 对外统一接口
      *
-     * @param runnable YAsyncRunner实例
+     * @param runnable YAsyncTask实例
      */
     public static void execute(Runnable runnable){
         executeSerial(runnable);

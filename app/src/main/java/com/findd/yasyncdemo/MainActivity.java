@@ -84,7 +84,7 @@ public class MainActivity extends ActionBarActivity {
             public void onResult(String o) {
                 tv.setText(o);
             }
-        }).create());
+        }));
 
         YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
@@ -101,7 +101,7 @@ public class MainActivity extends ActionBarActivity {
             public void onResult(String o) {
                 tv2.setText(o);
             }
-        }).create());
+        }));
 
         YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
@@ -118,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
             public void onResult(String o) {
                 tv3.setText(o);
             }
-        }).create());
+        }));
 
         YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
@@ -135,7 +135,7 @@ public class MainActivity extends ActionBarActivity {
             public void onResult(String o) {
                 tv4.setText(o);
             }
-        }).create());
+        }));
 
         YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
@@ -152,7 +152,7 @@ public class MainActivity extends ActionBarActivity {
             public void onResult(String o) {
                 tv5.setText(o);
             }
-        }).create());
+        }));
 
         YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
@@ -169,7 +169,7 @@ public class MainActivity extends ActionBarActivity {
             public void onResult(String o) {
                 tv6.setText(o);
             }
-        }).create());
+        }));
 
         YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
@@ -186,7 +186,7 @@ public class MainActivity extends ActionBarActivity {
             public void onResult(String o) {
                 tv7.setText(o);
             }
-        }).create());
+        }));
 
         YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
@@ -203,7 +203,31 @@ public class MainActivity extends ActionBarActivity {
             public void onResult(String o) {
                 tv8.setText(o);
             }
-        }).create(), true);
+        }), true);
+
+        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+            @Override
+            public String doAsync() {
+                return null;
+            }
+        }).doWhenFinished(new AsyncResult<String>() {
+            @Override
+            public void onResult(String s) {
+
+            }
+        }));
+
+        YAsync.execute(new YAsyncTask<Object>().doInBackground(new AsyncAction<Object>() {
+            @Override
+            public Object doAsync() {
+                return null;
+            }
+        }).doWhenFinished(new AsyncResult<Object>() {
+            @Override
+            public void onResult(Object o) {
+
+            }
+        }));
 
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,7 +254,7 @@ public class MainActivity extends ActionBarActivity {
                     public void onResult(String o) {
                         tv9.setText(o);
                     }
-                }).create());
+                }));
             }
         });
 

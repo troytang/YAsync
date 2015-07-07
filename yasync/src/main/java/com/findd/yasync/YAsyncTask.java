@@ -1,16 +1,24 @@
 package com.findd.yasync;
 
+import android.os.Handler;
+import android.os.Looper;
+
 /**
  * 异步任务对象
  *
  * Created by troy_tang on 2014/11/4.
  */
-public class YAsyncTask<TaskResult> {
+public class YAsyncTask<TaskResult> implements Runnable {
+
+    /** 主线程Handler */
+    private static Handler mainHandler = new Handler(Looper.getMainLooper());
 
     // 异步任务执行体
     private AsyncAction<TaskResult> asyncAction;
     // 异步任务完成后主线程执行体
-    private AsyncResult asyncResult;
+    private AsyncResult<TaskResult> asyncResult;
+    // 异步返回的结果
+    private TaskResult result;
 
     /**
      * 构造方法
@@ -42,14 +50,24 @@ public class YAsyncTask<TaskResult> {
     }
 
     /**
-     * 创建一个异步任务的线程
-     *
-     * @return
+     * 把异步执行体的结果返回到主线程
      */
-    public YAsyncRunner<TaskResult> create(){
-        YAsyncRunner<TaskResult> asyncRunner = new YAsyncRunner<TaskResult>();
-        asyncRunner.setActionInBackground(asyncAction);
-        asyncRunner.setActionOnResult(asyncResult);
-        return asyncRunner;
+    public void onResult() {
+        if (null != mainHandler) {
+            mainHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    asyncResult.onResult(result);
+                }
+            });
+        }
+    }
+
+    @Override
+    public void run() {
+        if (null != asyncAction) {
+            result = asyncAction.doAsync();
+            onResult();
+        }
     }
 }

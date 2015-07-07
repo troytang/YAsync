@@ -7,6 +7,6 @@ package com.findd.yasync;
  */
 public interface AsyncResult<Result> {
 
-    public void onResult(Result result);
+    void onResult(Result result);
 
 }
