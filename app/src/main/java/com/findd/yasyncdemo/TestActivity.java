@@ -3,9 +3,11 @@ package com.findd.yasyncdemo;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.findd.yasync.AsyncAction;
 import com.findd.yasync.AsyncResult;
+import com.findd.yasync.AysncFail;
 import com.findd.yasync.YAsync;
 import com.findd.yasync.YAsyncTask;
 
@@ -32,12 +34,19 @@ public class TestActivity extends Activity{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                String testStr = null;
+                testStr.length();
                 return "10s gone";
             }
         }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv1.setText(o);
+            }
+        }).doWhenFailed(new AysncFail() {
+            @Override
+            public void onFailed(Exception ex) {
+                Toast.makeText(TestActivity.this, ex.getCause().toString(), Toast.LENGTH_LONG).show();
             }
         }));
     }

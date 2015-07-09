@@ -7,6 +7,6 @@ package com.findd.yasync;
  */
 public interface AsyncAction<Result> {
 
-    Result doAsync();
+    Result doAsync() throws Exception;
 
 }
