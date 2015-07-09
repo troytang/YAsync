@@ -21,6 +21,11 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
             public void onResult(String o) {
                 tv.setText(o);
             }
+        }).doWhenFailed(new AysncFail() {
+            @Override
+            public void onFailed(Exception ex) {
+                Toast.makeText(TestActivity.this, ex.getCause().toString(), Toast.LENGTH_LONG).show();
+            }
         }));
 ```
 
