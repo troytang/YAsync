@@ -46,7 +46,7 @@ public class TestActivity extends Activity{
         }).doWhenFailed(new AysncFail() {
             @Override
             public void onFailed(Exception ex) {
-                Toast.makeText(TestActivity.this, ex.getCause().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(TestActivity.this, ex.toString(), Toast.LENGTH_LONG).show();
             }
         }));
     }

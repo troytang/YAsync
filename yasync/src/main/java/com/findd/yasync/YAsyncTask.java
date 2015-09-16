@@ -21,6 +21,8 @@ public class YAsyncTask<TaskResult> implements Runnable {
     private AysncFail aysncFail;
     // 异步返回的结果
     private TaskResult result;
+    // 排到队列的最前面
+    private boolean runNow;
 
     /**
      * 构造方法
@@ -60,6 +62,20 @@ public class YAsyncTask<TaskResult> implements Runnable {
     public YAsyncTask<TaskResult> doWhenFailed(AysncFail aysncFail) {
         this.aysncFail = aysncFail;
         return this;
+    }
+
+    /**
+     * 马上执行
+     *
+     * @return
+     */
+    public YAsyncTask<TaskResult> now() {
+        this.runNow = true;
+        return this;
+    }
+
+    public boolean getNow() {
+        return runNow;
     }
 
     /**

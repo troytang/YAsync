@@ -1,40 +1,43 @@
 package com.findd.yasync;
 
 /**
- * 精简版{@link ArrayDeque}实现。
- * 兼容旧版本Android的{@link ArrayDeque}，高性能Stack和Queue。
+ * 精简版{@link java.util.ArrayDeque}实现。
+ * 实现线程安全
  *
- * @author MaTianyu
- *         2014-1-31上午12:37:26
+ * Created by troy_tang on 2014/11/4.
  */
 class ArrayDequeCompat<E> {
     private transient E[] elements;
-    private transient int head;
-    private transient int tail;
+    public transient int head;
+    public transient int tail;
     private static final int MIN_INITIAL_CAPACITY = 8;
 
-    // ****** Array allocation and resizing utilities ******
+    /**
+     * Allocates empty array to hold the given number of elements.
+     *
+     * @param numElements  the number of elements to hold
+     */
     private void allocateElements(int numElements) {
         int initialCapacity = MIN_INITIAL_CAPACITY;
         // Find the best power of two to hold elements.
         // Tests "<=" because arrays aren't kept full.
         if (numElements >= initialCapacity) {
             initialCapacity = numElements;
-            initialCapacity |= (initialCapacity >>> 1);
-            initialCapacity |= (initialCapacity >>> 2);
-            initialCapacity |= (initialCapacity >>> 4);
-            initialCapacity |= (initialCapacity >>> 8);
+            initialCapacity |= (initialCapacity >>>  1);
+            initialCapacity |= (initialCapacity >>>  2);
+            initialCapacity |= (initialCapacity >>>  4);
+            initialCapacity |= (initialCapacity >>>  8);
             initialCapacity |= (initialCapacity >>> 16);
             initialCapacity++;
 
-            if (initialCapacity < 0) // Too many elements, must back off
+            if (initialCapacity < 0)   // Too many elements, must back off
                 initialCapacity >>>= 1;// Good luck allocating 2 ^ 30 elements
         }
         elements = (E[]) new Object[initialCapacity];
     }
 
     /**
-     * Double the capacity of this deque.  Call only when full, i.e.,
+     * Doubles the capacity of this deque.  Call only when full, i.e.,
      * when head and tail have wrapped around to become equal.
      */
     private void doubleCapacity() {
@@ -43,11 +46,12 @@ class ArrayDequeCompat<E> {
         int n = elements.length;
         int r = n - p; // number of elements to the right of p
         int newCapacity = n << 1;
-        if (newCapacity < 0) throw new IllegalStateException("Sorry, deque too big");
-        Object[] a = new Object[newCapacity];
+        if (newCapacity < 0)
+            throw new IllegalStateException("Sorry, deque too big");
+        E[] a = (E[]) new Object[newCapacity];
         System.arraycopy(elements, p, a, 0, r);
         System.arraycopy(elements, 0, a, r, p);
-        elements = (E[]) a;
+        elements = a;
         head = 0;
         tail = n;
     }
@@ -60,43 +64,62 @@ class ArrayDequeCompat<E> {
         allocateElements(numElements);
     }
 
+    /**
+     * Inserts the specified element at the front of this deque.
+     *
+     * @param e the element to add
+     * @throws NullPointerException if the specified element is null
+     */
     public void addFirst(E e) {
-        if (e == null) throw new NullPointerException("e == null");
+        if (e == null)
+            throw new NullPointerException();
         elements[head = (head - 1) & (elements.length - 1)] = e;
-        if (head == tail) doubleCapacity();
+        if (head == tail)
+            doubleCapacity();
     }
 
+    /**
+     * Inserts the specified element at the end of this deque.
+     *
+     * <p>This method is equivalent to {@link #add}.
+     *
+     * @param e the element to add
+     * @throws NullPointerException if the specified element is null
+     */
     public void addLast(E e) {
-        if (e == null) throw new NullPointerException("e == null");
+        if (e == null)
+            throw new NullPointerException();
         elements[tail] = e;
-        if ((tail = (tail + 1) & (elements.length - 1)) == head) doubleCapacity();
+        if ( (tail = (tail + 1) & (elements.length - 1)) == head)
+            doubleCapacity();
     }
 
-    public boolean offer(E e) {
+    public synchronized boolean offer(E e) {
         return offerLast(e);
     }
 
-    public boolean offerFirst(E e) {
+    public synchronized boolean offerFirst(E e) {
         addFirst(e);
         return true;
     }
 
-    public boolean offerLast(E e) {
+    public synchronized boolean offerLast(E e) {
         addLast(e);
         return true;
     }
 
-    public E poll() {
+    public synchronized E poll() {
         return pollFirst();
     }
 
     public E pollFirst() {
         int h = head;
         @SuppressWarnings("unchecked")
-        E result = (E) elements[h];
+        E result = elements[h];
         // Element is null if deque empty
-        if (result == null) return null;
-        elements[h] = null; // Must null out slot
+        if (result == null)
+            return null;
+        elements[h] = null;     // Must null out slot
         head = (h + 1) & (elements.length - 1);
         return result;
     }
@@ -104,8 +127,9 @@ class ArrayDequeCompat<E> {
     public E pollLast() {
         int t = (tail - 1) & (elements.length - 1);
         @SuppressWarnings("unchecked")
-        E result = (E) elements[t];
-        if (result == null) return null;
+        E result = elements[t];
+        if (result == null)
+            return null;
         elements[t] = null;
         tail = t;
         return result;
@@ -116,15 +140,14 @@ class ArrayDequeCompat<E> {
      *
      * @return the number of elements in this deque
      */
-    public int size() {
+    public synchronized int size() {
         return (tail - head) & (elements.length - 1);
     }
 
     /**
      * Removes all of the elements from this deque. The deque will be empty after this call returns.
      */
-
-    public void clear() {
+    public synchronized void clear() {
         int h = head;
         int t = tail;
         if (h != t) { // clear all cells

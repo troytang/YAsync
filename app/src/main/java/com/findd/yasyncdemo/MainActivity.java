@@ -28,6 +28,8 @@ public class MainActivity extends ActionBarActivity {
     TextView tv7;
     TextView tv8;
     TextView tv9;
+    TextView tv10;
+    TextView tv11;
 
     Button btnStop;
     Button btnStart;
@@ -48,32 +50,17 @@ public class MainActivity extends ActionBarActivity {
         tv7 = (TextView)findViewById(R.id.tv7);
         tv8 = (TextView)findViewById(R.id.tv8);
         tv9 = (TextView) findViewById(R.id.tv9);
+        tv10 = (TextView) findViewById(R.id.tv10);
+        tv11 = (TextView) findViewById(R.id.tv11);
         btnStart = (Button)findViewById(R.id.btn_start);
         btnStop = (Button)findViewById(R.id.btn_stop);
         btnChange = (Button)findViewById(R.id.btn_change);
-
-//        new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
-//            @Override
-//            public String doAsync() {
-//                try {
-//                    Thread.sleep(10000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                return "10s gone.";
-//            }
-//        }).doWhenFinished(new AsyncResultAction<String>() {
-//            @Override
-//            public void onResult(String o) {
-//                tv.setText(o);
-//            }
-//        }).create().start();
 
         YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -90,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public String doAsync() {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -107,7 +94,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public String doAsync() {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -124,7 +111,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public String doAsync() {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -141,7 +128,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public String doAsync() {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -158,7 +145,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public String doAsync() {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -175,7 +162,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public String doAsync() {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -192,7 +179,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public String doAsync() {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -203,31 +190,41 @@ public class MainActivity extends ActionBarActivity {
             public void onResult(String o) {
                 tv8.setText(o);
             }
-        }), true);
+        }));
 
         YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
             public String doAsync() {
-                return null;
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return "10s gone.";
             }
         }).doWhenFinished(new AsyncResult<String>() {
             @Override
             public void onResult(String s) {
-
+                tv10.setText(s);
             }
-        }));
+        }).now());
 
-        YAsync.execute(new YAsyncTask<Object>().doInBackground(new AsyncAction<Object>() {
+        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
             @Override
-            public Object doAsync() {
-                return null;
+            public String doAsync() {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<Object>() {
+        }).doWhenFinished(new AsyncResult<String>() {
             @Override
-            public void onResult(Object o) {
-
+            public void onResult(String o) {
+                tv11.setText(o);
             }
-        }));
+        }).now());
 
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -243,7 +240,7 @@ public class MainActivity extends ActionBarActivity {
                     @Override
                     public String doAsync() {
                         try {
-                            Thread.sleep(10000);
+                            Thread.sleep(5000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
