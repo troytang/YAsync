@@ -46,7 +46,7 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
             public void onResult(String o) {
                 tv8.setText(o);
             }
-        }), true);
+        }).now());
 ```
 
 * 取消未执行的所有任务
