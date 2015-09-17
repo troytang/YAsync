@@ -7,46 +7,46 @@ This is a android async task library。
 * general：
 ```
 YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
-            @Override
-            public String doAsync() {
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return "10s gone.";
-            }
-        }).doWhenFinished(new AsyncResult<String>() {
-            @Override
-            public void onResult(String o) {
-                tv.setText(o);
-            }
-        }).doWhenFailed(new AysncFail() {
-            @Override
-            public void onFailed(Exception ex) {
-                Toast.makeText(TestActivity.this, ex.getCause().toString(), Toast.LENGTH_LONG).show();
-            }
-        }));
+    @Override
+    public String doAsync() {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "10s gone.";
+    }
+}).doWhenFinished(new AsyncResult<String>() {
+    @Override
+    public void onResult(String o) {
+        tv.setText(o);
+    }
+}).doWhenFailed(new AysncFail() {
+    @Override
+    public void onFailed(Exception ex) {
+        Toast.makeText(TestActivity.this, ex.toString(), Toast.LENGTH_LONG).show();
+    }
+}));
 ```
 
 * If you want to add the task in the queue head：
 ```
 YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
-            @Override
-            public String doAsync() {
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                return "10s gone.";
-            }
-        }).doWhenFinished(new AsyncResult<String>() {
-            @Override
-            public void onResult(String o) {
-                tv8.setText(o);
-            }
-        }).now());
+    @Override
+    public String doAsync() {
+        try {
+             Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+            return "10s gone.";
+    }
+}).doWhenFinished(new AsyncResult<String>() {
+    @Override
+    public void onResult(String o) {
+        tv8.setText(o);
+    }
+}).now());
 ```
 
 * Cannel all which have not start
