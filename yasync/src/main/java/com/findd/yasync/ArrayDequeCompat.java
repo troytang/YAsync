@@ -70,7 +70,7 @@ class ArrayDequeCompat<E> {
      * @param e the element to add
      * @throws NullPointerException if the specified element is null
      */
-    public void addFirst(E e) {
+    public synchronized void addFirst(E e) {
         if (e == null)
             throw new NullPointerException();
         elements[head = (head - 1) & (elements.length - 1)] = e;
@@ -86,7 +86,7 @@ class ArrayDequeCompat<E> {
      * @param e the element to add
      * @throws NullPointerException if the specified element is null
      */
-    public void addLast(E e) {
+    public synchronized void addLast(E e) {
         if (e == null)
             throw new NullPointerException();
         elements[tail] = e;
@@ -112,7 +112,7 @@ class ArrayDequeCompat<E> {
         return pollFirst();
     }
 
-    public E pollFirst() {
+    public synchronized E pollFirst() {
         int h = head;
         @SuppressWarnings("unchecked")
         E result = elements[h];
@@ -124,7 +124,7 @@ class ArrayDequeCompat<E> {
         return result;
     }
 
-    public E pollLast() {
+    public synchronized E pollLast() {
         int t = (tail - 1) & (elements.length - 1);
         @SuppressWarnings("unchecked")
         E result = elements[t];
