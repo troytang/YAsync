@@ -1,8 +1,7 @@
 package com.findd.yasync;
 
 /**
- * 精简版{@link java.util.ArrayDeque}实现。
- * 实现线程安全
+ * simple {@link java.util.ArrayDeque}
  *
  * Created by troy_tang on 2014/11/4.
  */

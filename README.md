@@ -2,11 +2,21 @@
 
 This is a android async task library。
 
-### How to uses ###
+# Usage #
+
+### Gradle ###
+Add this dependency to your build.gradle file:
+```
+dependencies {
+    compile 'com.findd:yasync:0.1.1'
+}
+```
+
+### Basic usage ###
 
 * general：
 ```
-YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
     @Override
     public String doAsync() {
         try {
@@ -16,12 +26,12 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
         }
         return "10s gone.";
     }
-}).doWhenFinished(new AsyncResult<String>() {
+}).finished(new AsyncResult<String>() {
     @Override
     public void onResult(String o) {
         tv.setText(o);
     }
-}).doWhenFailed(new AysncFail() {
+}).failed(new AsyncFail() {
     @Override
     public void onFailed(Exception ex) {
         Toast.makeText(TestActivity.this, ex.toString(), Toast.LENGTH_LONG).show();
@@ -31,7 +41,7 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
 
 * If you want to add the task in the queue head：
 ```
-YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
     @Override
     public String doAsync() {
         try {
@@ -41,7 +51,7 @@ YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>()
         }
             return "10s gone.";
     }
-}).doWhenFinished(new AsyncResult<String>() {
+}).finished(new AsyncResult<String>() {
     @Override
     public void onResult(String o) {
         tv8.setText(o);
@@ -60,7 +70,7 @@ YAsync.cancelAll();
 * Uses thread pool。
 * Custom tactics。
 
-### License ###
+# License #
 
 ```
 Copyright 2014 Troy Tang

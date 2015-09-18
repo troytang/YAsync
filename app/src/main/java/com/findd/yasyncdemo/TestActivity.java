@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import com.findd.yasync.AsyncAction;
 import com.findd.yasync.AsyncResult;
-import com.findd.yasync.AysncFail;
+import com.findd.yasync.AsyncFail;
 import com.findd.yasync.YAsync;
 import com.findd.yasync.YAsyncTask;
 
@@ -26,11 +26,11 @@ public class TestActivity extends Activity{
 
         tv1 = (TextView) findViewById(R.id.tv1);
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
-                    Thread.sleep(10000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -38,12 +38,12 @@ public class TestActivity extends Activity{
                 testStr.length();
                 return "10s gone";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv1.setText(o);
             }
-        }).doWhenFailed(new AysncFail() {
+        }).failed(new AsyncFail() {
             @Override
             public void onFailed(Exception ex) {
                 Toast.makeText(TestActivity.this, ex.toString(), Toast.LENGTH_LONG).show();

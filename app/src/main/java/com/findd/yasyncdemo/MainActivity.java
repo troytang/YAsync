@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
         btnStop = (Button)findViewById(R.id.btn_stop);
         btnChange = (Button)findViewById(R.id.btn_change);
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
@@ -66,14 +66,14 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv.setText(o);
             }
         }));
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
@@ -83,14 +83,14 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv2.setText(o);
             }
         }));
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
@@ -100,14 +100,14 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv3.setText(o);
             }
         }));
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
@@ -117,14 +117,14 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv4.setText(o);
             }
         }));
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
@@ -134,14 +134,14 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv5.setText(o);
             }
         }));
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
@@ -151,14 +151,14 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv6.setText(o);
             }
         }));
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
@@ -168,14 +168,14 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv7.setText(o);
             }
         }));
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
@@ -185,14 +185,14 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv8.setText(o);
             }
         }));
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
@@ -202,14 +202,14 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String s) {
                 tv10.setText(s);
             }
         }).now());
 
-        YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+        YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
             @Override
             public String doAsync() {
                 try {
@@ -219,7 +219,7 @@ public class MainActivity extends ActionBarActivity {
                 }
                 return "10s gone.";
             }
-        }).doWhenFinished(new AsyncResult<String>() {
+        }).finished(new AsyncResult<String>() {
             @Override
             public void onResult(String o) {
                 tv11.setText(o);
@@ -236,7 +236,7 @@ public class MainActivity extends ActionBarActivity {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                YAsync.execute(new YAsyncTask<String>().doInBackground(new AsyncAction<String>() {
+                YAsync.run(new YAsyncTask<String>().async(new AsyncAction<String>() {
                     @Override
                     public String doAsync() {
                         try {
@@ -246,7 +246,7 @@ public class MainActivity extends ActionBarActivity {
                         }
                         return "10s gone.";
                     }
-                }).doWhenFinished(new AsyncResult<String>() {
+                }).finished(new AsyncResult<String>() {
                     @Override
                     public void onResult(String o) {
                         tv9.setText(o);
