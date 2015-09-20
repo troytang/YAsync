@@ -1,4 +1,4 @@
-# YAsync #
+﻿# YAsync #
 
 This is a android async task library。
 
@@ -8,7 +8,7 @@ This is a android async task library。
 Add this dependency to your build.gradle file:
 ```
 dependencies {
-    compile 'com.findd:yasync:0.1.1'
+    compile 'com.tangwy:yasync:0.2.0'
 }
 ```
 
