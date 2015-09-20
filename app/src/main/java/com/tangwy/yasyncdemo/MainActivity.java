@@ -1,4 +1,4 @@
-package com.findd.yasyncdemo;
+package com.tangwy.yasyncdemo;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.findd.yasync.AsyncAction;
-import com.findd.yasync.AsyncResult;
-import com.findd.yasync.YAsync;
-import com.findd.yasync.YAsyncTask;
+import com.tangwy.yasync.AsyncAction;
+import com.tangwy.yasync.AsyncResult;
+import com.tangwy.yasync.YAsync;
+import com.tangwy.yasync.YAsyncTask;
 
 
 public class MainActivity extends ActionBarActivity {

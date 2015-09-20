@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.findd.yasyncdemo"
+        applicationId "com.tangwy.yasyncdemo"
         minSdkVersion 8
         targetSdkVersion 21
         versionCode 1

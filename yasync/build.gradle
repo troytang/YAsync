@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "0.1.1" // config : now version code
+version = "0.2.0" // config : now version code
 
 android {
     compileSdkVersion 21
@@ -29,7 +29,7 @@ dependencies {
 
 def siteUrl = 'https://github.com/troytang/YAsync' // project homepage
 def gitUrl = 'https://github.com/troytang/YAsync.git' // project git
-group = "com.findd" // config : Maven Group ID for the artifact
+group = "com.tangwy" // config : Maven Group ID for the artifact
 
 install {
     repositories.mavenInstaller {

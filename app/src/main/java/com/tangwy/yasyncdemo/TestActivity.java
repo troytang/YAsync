@@ -1,15 +1,15 @@
-package com.findd.yasyncdemo;
+package com.tangwy.yasyncdemo;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.findd.yasync.AsyncAction;
-import com.findd.yasync.AsyncResult;
-import com.findd.yasync.AsyncFail;
-import com.findd.yasync.YAsync;
-import com.findd.yasync.YAsyncTask;
+import com.tangwy.yasync.AsyncAction;
+import com.tangwy.yasync.AsyncResult;
+import com.tangwy.yasync.AsyncFail;
+import com.tangwy.yasync.YAsync;
+import com.tangwy.yasync.YAsyncTask;
 
 
 /**

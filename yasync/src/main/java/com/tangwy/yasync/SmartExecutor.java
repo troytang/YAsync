@@ -1,12 +1,10 @@
-package com.findd.yasync;
+package com.tangwy.yasync;
 
 import android.annotation.TargetApi;
 import android.os.Build;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
-
-import static com.findd.yasync.RunnableWrapper.WrapperListener;
 
 /**
  * Created by Troy on 15/4/20.
@@ -104,7 +102,7 @@ class SmartExecutor implements Executor {
 
     @Override
     public synchronized void execute(final Runnable command) {
-        RunnableWrapper wrapper = new RunnableWrapper(command, new WrapperListener() {
+        RunnableWrapper wrapper = new RunnableWrapper(command, new RunnableWrapper.WrapperListener() {
             @Override
             public void runCompleted() {
                 next();
