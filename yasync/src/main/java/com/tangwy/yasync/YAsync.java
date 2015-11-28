@@ -57,6 +57,6 @@ public class YAsync {
     public static void cancelAll() {
         ((SmartExecutor) mLruExecutor).clear();
 
-        mCachedExecutor.shutdown();
+//        mCachedExecutor.shutdown();
     }
 }
