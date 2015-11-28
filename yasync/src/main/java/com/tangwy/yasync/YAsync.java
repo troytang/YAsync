@@ -45,13 +45,17 @@ public class YAsync {
 
     public static final Executor mLruExecutor = new SmartExecutor(CPU_COUNT, mCachedExecutor);
 
-    public static void run(Runnable runnable){
+    public static YAsyncTask run(Runnable runnable){
         mLruExecutor.execute(runnable);
+        if (runnable instanceof YAsyncTask) {
+            return (YAsyncTask) runnable;
+        }
+        return null;
     }
 
     public static void cancelAll() {
         ((SmartExecutor) mLruExecutor).clear();
 
-        mCachedExecutor.purge();
+        mCachedExecutor.shutdown();
     }
 }

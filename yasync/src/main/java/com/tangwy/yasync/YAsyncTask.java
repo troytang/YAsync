@@ -16,6 +16,7 @@ public class YAsyncTask<TaskResult> implements Runnable {
     private AsyncFail asyncFail;
     private TaskResult result;
     private boolean runNow;
+    private boolean isCancel;
 
     public YAsyncTask(){
 
@@ -41,6 +42,10 @@ public class YAsyncTask<TaskResult> implements Runnable {
         return this;
     }
 
+    public void cancel() {
+        this.isCancel = true;
+    }
+
     public boolean getNow() {
         return runNow;
     }
@@ -63,11 +68,20 @@ public class YAsyncTask<TaskResult> implements Runnable {
     @Override
     public void run() {
         if (null != asyncAction) {
+            boolean success = false;
+            Exception exception = null;
             try {
-                result = asyncAction.doAsync();
-                onResult(true, null);
+                if (!isCancel) {
+                    result = asyncAction.doAsync();
+                    success = true;
+                }
             } catch (Exception ex) {
-                onResult(false, ex);
+                success = false;
+                exception = ex;
+            } finally {
+              if (!isCancel) {
+                  onResult(success, exception);
+              }
             }
         }
     }
