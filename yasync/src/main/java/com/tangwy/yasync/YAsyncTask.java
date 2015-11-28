@@ -1,19 +1,17 @@
 package com.tangwy.yasync;
 
-import android.os.Handler;
-import android.os.Looper;
-
 /**
  *
  * Created by troy_tang on 2014/11/4.
  */
 public class YAsyncTask<TaskResult> implements Runnable {
 
-    private static Handler mainHandler = new Handler(Looper.getMainLooper());
+    private final ResultDelivery resultDelivery = YAsync.mResultDelivery;
 
+    protected AsyncResult<TaskResult> asyncResult;
+    protected AsyncFail asyncFail;
+    protected Exception error;
     private AsyncAction<TaskResult> asyncAction;
-    private AsyncResult<TaskResult> asyncResult;
-    private AsyncFail asyncFail;
     private TaskResult result;
     private boolean runNow;
     private boolean isCancel;
@@ -46,41 +44,42 @@ public class YAsyncTask<TaskResult> implements Runnable {
         this.isCancel = true;
     }
 
-    public boolean getNow() {
+    protected TaskResult getResult() {
+        return result;
+    }
+
+    protected boolean isCancel() {
+        return this.isCancel;
+    }
+
+    protected boolean isSuccess() {
+        return null == error;
+    }
+
+    protected boolean getNow() {
         return runNow;
     }
 
-    public void onResult(final boolean success, final Exception ex) {
-        if (null != mainHandler) {
-            mainHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    if (success && null != asyncResult) {
-                        asyncResult.onResult(result);
-                    } else if (!success && null != asyncFail){
-                        asyncFail.onFailed(ex);
-                    }
-                }
-            });
+    protected void onResult() {
+        if (null != resultDelivery) {
+            resultDelivery.postResult(this);
+        } else {
+            throw new NullPointerException("YAsyncTask's ResultDelivery is null!");
         }
     }
 
     @Override
     public void run() {
         if (null != asyncAction) {
-            boolean success = false;
-            Exception exception = null;
             try {
                 if (!isCancel) {
                     result = asyncAction.doAsync();
-                    success = true;
                 }
             } catch (Exception ex) {
-                success = false;
-                exception = ex;
+                error = ex;
             } finally {
               if (!isCancel) {
-                  onResult(success, exception);
+                  onResult();
               }
             }
         }

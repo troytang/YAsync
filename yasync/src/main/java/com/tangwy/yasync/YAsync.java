@@ -1,5 +1,7 @@
 package com.tangwy.yasync;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import java.util.concurrent.BlockingQueue;
@@ -11,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- *
  * Created by troy_tang on 2014/11/4.
  */
 public class YAsync {
@@ -19,6 +20,7 @@ public class YAsync {
     private static final String LOG_TAG = "YAsync";
 
     private static int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+
     static {
         Log.i(LOG_TAG, "CPU : " + CPU_COUNT);
     }
@@ -45,12 +47,11 @@ public class YAsync {
 
     public static final Executor mLruExecutor = new SmartExecutor(CPU_COUNT, mCachedExecutor);
 
-    public static YAsyncTask run(Runnable runnable){
+    public static final ResultDelivery mResultDelivery = new ExecutorDelivery(new Handler(Looper.getMainLooper()));
+
+    public static YAsyncTask run(YAsyncTask runnable) {
         mLruExecutor.execute(runnable);
-        if (runnable instanceof YAsyncTask) {
-            return (YAsyncTask) runnable;
-        }
-        return null;
+        return runnable;
     }
 
     public static void cancelAll() {
